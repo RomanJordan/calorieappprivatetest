@@ -1,5 +1,7 @@
 package com.example.calorieteststuff;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +19,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
     private ArrayList<Food> mFoodList;
 //    public int publicint = 0;
-
-    public FoodAdapter(ArrayList<Food> foodList) {
+    private Context mContext;
+    public FoodAdapter(Context context, ArrayList<Food> foodList) {
         this.mFoodList = foodList;
+        this.mContext = context;
     }
 
       class FoodViewHolder extends RecyclerView.ViewHolder
@@ -35,7 +38,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             mFoodImage = itemView.findViewById(R.id.imageViewFood);
             mNameText = itemView.findViewById(R.id.foodTitle);
             mCaloriesText = itemView.findViewById(R.id.foodCalories);
-
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -64,7 +66,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             Log.d("toRemoveIS!!", ""+(newAmount- currCalories));
             double FinalNUMBERLOL = (newAmount - currCalories);
             Log.d("finalNumber!!", ""+FinalNUMBERLOL);
-            MainActivity.totalCalories = FinalNUMBERLOL;
+            MainActivity.setTotalCalories(FinalNUMBERLOL);
             MainActivity.totalCaloriesText.setText(Double.toString(FinalNUMBERLOL));
             return true;
         }
@@ -72,10 +74,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Log.d("Viewholder", "Short Click Food item " + position);
-
-//            Food currentFood = mFoodList.get(getAdapterPosition());
-//            Log.d("currentFOod", "" + mFoodList.get(getAdapterPosition()));
+            Food currentFood = mFoodList.get(getAdapterPosition());
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            intent.putExtra("title", currentFood.getName());
+            intent.putExtra("info", Double.toString(currentFood.getCalories()));
+            Log.d("calories lol", ""+currentFood.getCalories());
+            intent.putExtra("image_resource", currentFood.getImageResource());
+            mContext.startActivity(intent);
         }
     }
 

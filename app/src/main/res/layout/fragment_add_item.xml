@@ -24,4 +24,5 @@
         android:hint="Calories"
         android:gravity="center"/>
 
+
 </LinearLayout>

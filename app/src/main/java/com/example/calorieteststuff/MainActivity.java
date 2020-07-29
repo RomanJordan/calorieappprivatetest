@@ -35,6 +35,15 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
 
     public static double totalCalories = 0;
 
+    public static double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public static void setTotalCalories(double totalCalories) {
+        MainActivity.totalCalories = totalCalories;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
 
         mRecyclerView = findViewById(R.id.mRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new FoodAdapter( foodList);
+        mAdapter = new FoodAdapter(this, foodList);
 ////        mRecyclerView.setHasFixedSize(true);
 //        mLayoutManager = new LinearLayoutManager(this);
 //        mAdapter = new FoodAdapter(exampleListOfFood);
@@ -75,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
         Log.d("FoodNameFromDialog",""+foodName);
         Log.d("CaloriesFromDialog",""+calories);
         totalCalories += Double.parseDouble(calories);
-        foodList.add(new Food(foodName, Double.parseDouble(calories), R.drawable.ic_baseline_fastfood_24));
+        if (AddItemFragment.isFood) {
+            foodList.add(new Food(foodName, Double.parseDouble(calories), R.drawable.ic_baseline_fastfood_24));
+        }
+        else {
+            foodList.add(new Food(foodName, Double.parseDouble(calories), R.drawable.ic_baseline_sports_tennis_24));
+        }
         mAdapter.notifyDataSetChanged();
         totalCaloriesText.setText(Double.toString(totalCalories));
     }

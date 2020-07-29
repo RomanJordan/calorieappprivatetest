@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 /**
@@ -27,7 +28,11 @@ import android.widget.TextView;
 public class AddItemFragment extends DialogFragment {
 
     private EditText foodNameInput, foodCaloriesInput;
+    private RadioGroup radioGroup;
     private DialogListener listener;
+    final CharSequence[] TYPE_ITEMS =
+            {"Food", "Exercise"};
+    public static boolean isFood = true;
 
     @NonNull
     @Override
@@ -35,24 +40,53 @@ public class AddItemFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_add_item, null);
-
-//        builder.setView(inflater.inflate(R.layout.fragment_add_item, null));
         builder.setView(view);
-//        foodNameInput = getView().findViewById(R.id.enterFoodName);
-//        foodCaloriesInput = getView().findViewById(R.id.enterFoodCalories);
+
         foodNameInput = view.findViewById(R.id.enterFoodName);
         foodCaloriesInput = view.findViewById(R.id.enterFoodCalories);
+
+        int buttonIndex = 0;
+
+        builder.setSingleChoiceItems(TYPE_ITEMS, buttonIndex, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        // Food
+                        isFood = true;
+                        Log.d("singleChoiceItems", "option 1");
+                        break;
+                    case 1:
+                        // Exercise
+                        isFood = false;
+                        Log.d("singleChoiceItems", "option 2");
+                        break;
+
+                }
+            }
+        });
         builder.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("onclick","on click dialog");
                 String foodString = foodNameInput.getText().toString();
                 String calories = foodCaloriesInput.getText().toString();
+                if (!isFood){
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("-");
+                    calories = foodCaloriesInput.getText().toString();
+                    sb.append(calories);
+                    calories = sb.toString();
+                    Log.d("setPositiveButton", ""+calories);
+                }
+                else {
+                    calories = foodCaloriesInput.getText().toString();
+                }
+
 //                Log.d("foodString", ""+foodString);
                 listener.applyTexts(foodString, calories);
             }
         });
-
         return builder.create();
     }
 
@@ -77,7 +111,4 @@ public class AddItemFragment extends DialogFragment {
 //        // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_add_item, container, false);
 //    }
-
-
-
 }
