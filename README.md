@@ -6,7 +6,7 @@
 #### <a href="https://youtu.be/KcrCj3gI48Y">Prototype 1 Demonstration</a>
 
 
-<br/>
+
 #### SOME TO DO:
 #### Splash Screen
 #### Weather API integration to display current weather when app is booted
