@@ -61,13 +61,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             int start = MainActivity.totalCaloriesText.getLayout().getLineStart(0);
             int end = MainActivity.totalCaloriesText.getLayout().getLineEnd(MainActivity.totalCaloriesText.getLineCount() - 1);
             String displayed = MainActivity.totalCaloriesText.getText().toString().substring(start, end);
-            Log.d("Current calorie text", ""+displayed);
+//            Log.d("Current calorie text", ""+displayed);
             double newAmount = Double.parseDouble(displayed);
-            Log.d("toRemoveIS!!", ""+(newAmount- currCalories));
-            double FinalNUMBERLOL = (newAmount - currCalories);
-            Log.d("finalNumber!!", ""+FinalNUMBERLOL);
-            MainActivity.setTotalCalories(FinalNUMBERLOL);
-            MainActivity.totalCaloriesText.setText(Double.toString(FinalNUMBERLOL));
+//            Log.d("toRemoveIS!!", ""+(newAmount- currCalories));
+            double finalNumber = (newAmount - currCalories);
+//            Log.d("finalNumber!!", ""+finalNumber);
+            MainActivity.setTotalCalories(finalNumber);
+            MainActivity.totalCaloriesText.setText(Double.toString(finalNumber));
             return true;
         }
 
