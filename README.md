@@ -13,3 +13,5 @@
 #### Improved DetailActivity
 #### Implement "Calorie goal" for day
 #### Notifications for end of day, telling the user whether their caloric goal was met
+#### Fix bug with splash screening not always properly showing
+#### Integrate user's name somewhere further in app
