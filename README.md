@@ -4,12 +4,12 @@
 #### :heavy_check_mark: (July 30): Basic RecyclerView functionality added, ability to add or remove a food item, or exercise complete. Updating of amount of calories, adding calories for a food item, removing calories for an exercise also added.
 #### :heavy_check_mark: (July 30): Basic activity for each item displaying the details of the particular item selected
 #### :heavy_check_mark: (Aug 03): Weather API integration, can now get current location of device, and show appropriate temp by using lattitude/longitude
+#### :heavy_check_mark: (Aug 03): Splash Screen
 #### <a href="https://youtu.be/KcrCj3gI48Y">Prototype 1 Demonstration</a>
 
 
 
 #### SOME TO DO:
-#### Splash Screen
 #### Improved DetailActivity
 #### Implement "Calorie goal" for day
 #### Notifications for end of day, telling the user whether their caloric goal was met
