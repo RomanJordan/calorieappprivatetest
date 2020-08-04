@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mRecyclerView"
-        android:layout_marginBottom="65dp"/>
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="18dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:src="@drawable/ic_baseline_add_circle_24"
         android:contentDescription=""
         android:layout_alignParentBottom="true"
@@ -41,6 +42,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="Total Calories: "/>
+
+    <TextView
+        android:id="@+id/currentWeatherText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Weather"
+        android:layout_alignParentTop="true"/>
 
 
 </RelativeLayout>
