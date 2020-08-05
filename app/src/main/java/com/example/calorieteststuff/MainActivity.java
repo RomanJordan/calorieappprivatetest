@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
     public static double caloricSurplusGoal = 0;
     public static double caloricDeficitGoal = 0;
     Double latitude, longitude;
-    private final String key = "API";
+    private final String key = "77bf636fc7895dfb8cbf7acd259b2016";
 
     public static double getTotalCalories() {
         return totalCalories;

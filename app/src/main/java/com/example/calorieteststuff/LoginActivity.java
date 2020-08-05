@@ -2,6 +2,7 @@ package com.example.calorieteststuff;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 if(mFirebaseUser != null){
                     Toast.makeText(LoginActivity.this,"You are logged in", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
