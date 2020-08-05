@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "340438084246",
+    "firebase_url": "https://fitness-application-9ce61.firebaseio.com",
+    "project_id": "fitness-application-9ce61",
+    "storage_bucket": "fitness-application-9ce61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340438084246:android:c8a4acaca0ff7c8ebbf0b7",
+        "android_client_info": {
+          "package_name": "com.example.calorieteststuff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340438084246-q8tt1bs4km73ea6lu888u07pc9qkluh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsVWRA7h6_jVCx3abZvRjtWRUocgCCHI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340438084246-q8tt1bs4km73ea6lu888u07pc9qkluh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

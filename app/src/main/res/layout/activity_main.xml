@@ -48,6 +48,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Current Weather"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="15dp"/>
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello user!"
         android:layout_alignParentTop="true"/>
 
 

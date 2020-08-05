@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
 
     public static TextView totalCaloriesText;
     private TextView weatherText;
+    private TextView nameText;
 
     public static double totalCalories = 0;
     public static double caloricSurplusGoal = 0;
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         totalCaloriesText = findViewById(R.id.totalCaloriesText);
         weatherText = findViewById(R.id.currentWeatherText);
+        nameText = findViewById(R.id.nameText);
+//        nameText.setText();
 //        totalCaloriesText.setText("Total Calories:");
 //        ArrayList<Food> exampleListOfFood = new ArrayList<>();
 //        exampleListOfFood.add(new Food("Food 1", 150.0, R.drawable.ic_baseline_fastfood_24));

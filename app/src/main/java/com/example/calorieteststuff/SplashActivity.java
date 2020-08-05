@@ -1,7 +1,10 @@
 package com.example.calorieteststuff;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -14,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SplashActivity extends AppCompatActivity {
 
     private static final String SHARED_PREFS = "sharedPrefs";
-
+    String prevStarted = "prevStarted";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
     private void runSplash(){
-        final Intent main = new Intent(this, MainActivity.class);
+        final Intent main = new Intent(this, RegistrationActivity.class);
 
         Thread timer = new Thread(){
             public void run() {
@@ -43,23 +46,8 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 } finally {
-                    Boolean isFirstRun = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
-                            .getBoolean("isFirstRun", true);
-                    if (isFirstRun) {
-                        getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit()
-                                .putBoolean("isFirstRun", false).apply();
-                        startActivity(new Intent(SplashActivity.this, FirstLaunch.class));
-                        Toast.makeText(SplashActivity.this, "First Run", Toast.LENGTH_LONG)
-                                .show();
-
-                    }
-                    else {
-                        startActivity(main);
-                        finish();
-                    }
-                    getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).edit()
-                            .putBoolean("isFirstRun", false).apply();
-
+                    startActivity(main);
+                    finish();
                 }
             }
 
