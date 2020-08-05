@@ -5,6 +5,8 @@
 #### :heavy_check_mark: (July 30): Basic activity for each item displaying the details of the particular item selected
 #### :heavy_check_mark: (Aug 03): Weather API integration, can now get current location of device, and show appropriate temp by using lattitude/longitude
 #### :heavy_check_mark: (Aug 03): Splash Screen
+#### :heavy_check_mark: (Aug 04): Basic user preferences/settings setup
+#### :heavy_check_mark: (Aug 04): Basic user login using firebase
 #### <a href="https://youtu.be/KcrCj3gI48Y">Prototype 1 Demonstration</a>
 
 
