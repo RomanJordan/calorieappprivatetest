@@ -72,7 +72,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             }
                             else{
-                                startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                             }
                         }
                     });

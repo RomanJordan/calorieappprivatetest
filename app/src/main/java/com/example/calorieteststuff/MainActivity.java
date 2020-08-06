@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -30,12 +31,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,8 +56,9 @@ import java.util.Calendar;
 import java.util.Locale;
 import static com.example.calorieteststuff.Notification.CHANNEL_1_ID;
 import android.app.Notification;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AddItemFragment.DialogListener {
+public class MainActivity extends AppCompatActivity implements AddItemFragment.DialogListener{
 
     private FusedLocationProviderClient fusedLocationClient;
     private NotificationManagerCompat notificationManager;
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
     public static double caloricSurplusGoal = 0;
     public static double caloricDeficitGoal = 0;
     Double latitude, longitude;
-    private final String key = "umm";
+    private final String key = "77bf636fc7895dfb8cbf7acd259b2016";
 
     public static double getTotalCalories() {
         return totalCalories;
@@ -226,12 +230,53 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
         return true;
     }
 
+//    public void showPopup(View v) {
+//        PopupMenu popup = new PopupMenu(this, v);
+//        MenuInflater inflater = popup.getMenuInflater();
+//        inflater.inflate(R.menu.actions, popup.getMenu());
+//        popup.show();
+//    }
+
+//    @Override
+//    public boolean onMenuItemClick(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.shareButton:
+//                Toast.makeText(getApplicationContext(),"Brag to your friends",Toast.LENGTH_LONG).show();
+//                Intent shareIntent = new Intent();
+//                shareIntent.setAction(Intent.ACTION_SENDTO);
+//                shareIntent.setData(Uri.parse("smsto:"+totalCalories));
+//                startActivity(shareIntent);
+//                return true;
+//            case R.id.logoutButton:
+//                FirebaseAuth.getInstance().signOut();
+//                Intent i = new Intent(MainActivity.this, RegistrationActivity.class);
+//                startActivity(i);
+//                return true;
+//            default:
+//                return false;
+//        }
+//    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settingsButton:
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
+            case R.id.shareButton:
+                Toast.makeText(getApplicationContext(),"Brag to your friends",Toast.LENGTH_LONG).show();
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SENDTO);
+                shareIntent.setData(Uri.parse("smsto:"));
+                shareIntent.putExtra("sms_body", "Total Calories for today: "+totalCalories);
+                startActivity(shareIntent);
+                return true;
+            case R.id.logoutButton:
+                FirebaseAuth.getInstance().signOut();
+                Intent logout = new Intent(MainActivity.this, RegistrationActivity.class);
+                startActivity(logout);
+                return true;
+
         }
         return true;
     }
@@ -262,5 +307,8 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
         notificationManager.notify(1, notification);
+    }
+
+    public void showPopup(MenuItem item) {
     }
 }

@@ -7,4 +7,17 @@
         android:icon="@drawable/ic_baseline_settings_24"
         app:showAsAction="ifRoom"/>
 
+
+
+    <item
+        android:id="@+id/shareButton"
+        android:title="Share"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logoutButton"
+        android:title="Logout"
+        app:showAsAction="never"/>
+
+
 </menu>
