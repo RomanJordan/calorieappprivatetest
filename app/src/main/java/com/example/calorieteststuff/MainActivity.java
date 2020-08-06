@@ -3,14 +3,21 @@ package com.example.calorieteststuff;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
@@ -20,6 +27,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,11 +49,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
+import static com.example.calorieteststuff.Notification.CHANNEL_1_ID;
+import android.app.Notification;
 
 public class MainActivity extends AppCompatActivity implements AddItemFragment.DialogListener {
 
     private FusedLocationProviderClient fusedLocationClient;
+    private NotificationManagerCompat notificationManager;
 
     ArrayList<Food> foodList = new ArrayList<>();
     JSONObject data = null;
@@ -58,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
     public static TextView totalCaloriesText;
     private TextView weatherText;
     private TextView nameText;
+    private TextView weightText;
+    private TextView heightText;
 
     public static double totalCalories = 0;
     public static double caloricSurplusGoal = 0;
@@ -81,9 +95,12 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         totalCaloriesText = findViewById(R.id.totalCaloriesText);
         weatherText = findViewById(R.id.currentWeatherText);
         nameText = findViewById(R.id.nameText);
+        weightText = findViewById(R.id.weightText);
+        heightText = findViewById(R.id.heightText);
 //        nameText.setText();
 //        totalCaloriesText.setText("Total Calories:");
 //        ArrayList<Food> exampleListOfFood = new ArrayList<>();
@@ -105,8 +122,32 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
-
+        notificationManager = NotificationManagerCompat.from(this);
+        sendOnChannel1();
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.set(Calendar.HOUR_OF_DAY, 8);
+        c.set(Calendar.MINUTE, 0);
+        startAlarm(c);
+        String nameKeyText = prefs.getString("nameKey", "Name Not Set");
+        String weightKeyText = prefs.getString("weightKey", "Weight Not Set");
+        String heightKeyText = prefs.getString("heightKey", "Height Not Set");
+        nameText.setText(nameKeyText);
+        weightText.setText(weightKeyText);
+        heightText.setText(heightKeyText);
     }
+
+    private void startAlarm(Calendar c) {
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, i, 0);
+
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -186,6 +227,16 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settingsButton:
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+        }
+        return true;
+    }
+
+    @Override
     public void applyTexts(String foodName, String calories) {
         Log.d("FoodNameFromDialog",""+foodName);
         Log.d("CaloriesFromDialog",""+calories);
@@ -198,5 +249,18 @@ public class MainActivity extends AppCompatActivity implements AddItemFragment.D
         }
         mAdapter.notifyDataSetChanged();
         totalCaloriesText.setText(Double.toString(totalCalories));
+    }
+
+    public void sendOnChannel1() {
+        String title = "MyCoolApp";
+        String message = "Welcome to my cool app";
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_baseline_settings_24)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        notificationManager.notify(1, notification);
     }
 }

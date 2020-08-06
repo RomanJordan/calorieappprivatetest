@@ -19,10 +19,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+
     EditText emailId, password;
     FirebaseAuth mFirebaseAuth;
     Button button;
     TextView loginLink;
+
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                FirebaseAuth.getInstance().signOut();
                 if(mFirebaseUser != null){
                     Toast.makeText(LoginActivity.this,"You are logged in", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
@@ -90,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(LoginActivity.this, "Login Error, Please Login Again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_LONG).show();
                             } else {
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);

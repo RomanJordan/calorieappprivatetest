@@ -20,12 +20,15 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView foodTitle = findViewById(R.id.titleDetail);
         TextView info = findViewById(R.id.info);
+        TextView dateAdded = findViewById(R.id.dateAddedText);
         ImageView sportsImage = findViewById(R.id.sportsImageDetail);
 
         foodTitle.setText(getIntent().getStringExtra("title"));
         info.setText(getIntent().getStringExtra("info"));
+        dateAdded.setText(getIntent().getStringExtra("time_added"));
 //        Log.d("calories", ""+getIntent().getStringExtra("info"));
         Glide.with(this).load(getIntent().getIntExtra("image_resource",0))
                 .into(sportsImage);
+        Log.d("Time added", ""+getIntent().getStringExtra("time_added"));
     }
 }

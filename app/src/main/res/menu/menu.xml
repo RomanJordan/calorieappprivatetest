@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title=""
-        android:id="@+id/deleteButton"
+        android:id="@+id/settingsButton"
         android:icon="@drawable/ic_baseline_settings_24"
         app:showAsAction="ifRoom"/>
 

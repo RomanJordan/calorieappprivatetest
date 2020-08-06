@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
@@ -78,8 +79,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             Intent intent = new Intent(mContext, DetailActivity.class);
             intent.putExtra("title", currentFood.getName());
             intent.putExtra("info", Double.toString(currentFood.getCalories()));
-            Log.d("calories lol", ""+currentFood.getCalories());
+//            Log.d("calories lol", ""+currentFood.getCalories());
             intent.putExtra("image_resource", currentFood.getImageResource());
+            intent.putExtra("time_added", Calendar.getInstance().getTime().toString());
             mContext.startActivity(intent);
         }
     }
